@@ -26,6 +26,36 @@ const signUp = async (req: Request, res: Response) => {
   }
 };
 
+const signIn = async(req:Request, res:Response)=>{
+  const {email,password} = req.body;
+
+  try{
+    const result = await authServices.signIn(email,password);
+
+    if (!result) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Login successfull",
+      data: {
+        token: result.token,
+        user: result.user,
+      },
+    });
+  }
+  catch(err:any){
+    res.status(400).json({
+      message : "failed sign in"
+    })
+  }
+}
+
 export const authControllers = {
   signUp,
+  signIn
 };

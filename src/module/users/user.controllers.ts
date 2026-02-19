@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { userServices } from "./user.services";
+import { AuthRequest } from "../../middlewares/verifyToken";
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -25,8 +26,10 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-const updateUser = async (req: Request, res: Response) => {
+const updateUser = async (req: AuthRequest, res: Response) => {
   const id = Number(req.params.userId);
+
+  console.log(req.user);
 
   try {
     const result = await userServices.updateUser(id, req.body);
