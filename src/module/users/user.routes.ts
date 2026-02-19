@@ -4,5 +4,6 @@ import { userControllers } from "./user.controllers";
 const router = express.Router();
 
 router.get("/", userControllers.getAllUsers);
+router.patch('/:userId',userControllers.updateUser);
 
 export const userRoutes = router;
