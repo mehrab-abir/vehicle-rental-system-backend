@@ -8,5 +8,7 @@ router.post('/',verifyToken, bookingControllers.createBooking);
 
 router.get('/',verifyToken, bookingControllers.getAllBookings);
 
+router.patch('/:bookingId',verifyToken, bookingControllers.updateBooking);
+
 
 export const bookingRoutes = router;

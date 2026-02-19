@@ -25,7 +25,7 @@ const createBooking = async (req: Request, res: Response) => {
 };
 
 const getAllBookings = async (req: AuthRequest, res: Response) => {
-  
+
   if(!req.user){
     return res.status(401).json({
       message : "unauthorized"
@@ -48,9 +48,51 @@ const getAllBookings = async (req: AuthRequest, res: Response) => {
   }
 };
 
+const updateBooking = async(req: AuthRequest, res:Response)=>{
+
+  if(!req.user){
+    return res.status(401).json({
+      message : "unauthorized"
+    })
+  }
+
+  const booking_id = Number(req.params.bookingId);
+
+  try{
+    const result = await bookingServices.updateBooking(booking_id, req.body);
+    
+    if(req.user.role === "customer"){
+      return res.json({
+        success : true,
+        message : "Booking cancelled successfully",
+        data : {
+          ...result.updatedBooking.rows[0],
+        }
+      })
+    }
+
+    return res.json({
+      success: true,
+      message: "Booking marked as returned. Vehicle is now available",
+      data: {
+        ...result.updatedBooking.rows[0],
+        vehicle : {
+          availability_status : result.updatedVehicleStatus.rows[0].availability_status
+        }
+      }
+    });
+  }
+  catch{
+    res.status(500).json({
+      success : false,
+      message : "something went wrong, booking status not updated"
+    })
+  }
+}
 
 
 export const bookingControllers = {
   createBooking,
   getAllBookings,
+  updateBooking
 };

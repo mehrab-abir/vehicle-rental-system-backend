@@ -63,7 +63,22 @@ const getAllBookings = async (info: Record<string, any>) => {
   return result;  
 };
 
+const updateBooking = async(booking_id:number,payload:Record<string,string>)=>{
+  const {status} = payload;
+
+  const booking = await pool.query(`SELECT * FROM bookings WHERE id=$1`,[booking_id]);
+
+  const vehicleId = booking.rows[0].vehicle_id;
+
+  const updatedBooking = await pool.query(`UPDATE bookings SET status=$1 WHERE id=$2 RETURNING *`, [status,booking_id]);
+
+  const updatedVehicleStatus = await pool.query(`UPDATE vehicles SET availability_status=$1 WHERE id=$2 RETURNING *`,["available",vehicleId]);
+
+  return {updatedBooking, updatedVehicleStatus}
+}
+
 export const bookingServices = {
   createBooking,
   getAllBookings,
+  updateBooking
 };
