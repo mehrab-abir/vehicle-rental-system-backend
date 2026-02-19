@@ -42,7 +42,7 @@ export const initDB = async ()=>{
             total_price NUMERIC(10,2) NOT NULL
                 CHECK (total_price >= 0),
             status VARCHAR(50) NOT NULL
-                CHECK(status IN('active', 'cancelled','returned'))
+                CHECK(status IN('active','cancelled','returned'))
         )`,
     );
 }
