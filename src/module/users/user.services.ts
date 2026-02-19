@@ -36,6 +36,14 @@ const updateUser = async(id:number,data:updateUserInfo)=>{
 }
 
 const deleteUser = async(id:number)=>{
+    const booking = await pool.query(`SELECT * FROM bookings WHERE customer_id=$1`,[id]);
+
+    // console.log("Booking array length: ", booking.rows.length);
+
+    if(booking.rows.length !== 0){
+        return false;
+    }
+
     const result = await pool.query(`DELETE FROM users WHERE id=$1`,[id]);
     return result;
 }

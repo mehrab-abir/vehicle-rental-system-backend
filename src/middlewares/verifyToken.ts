@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import config from "../config/config";
 
 interface jwtpayload {
+    id: number;
     name: string;
     email : string;
     role : "admin" | "customer";
