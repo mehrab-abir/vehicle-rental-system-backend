@@ -8,6 +8,12 @@ const createBooking = async (payload: Record<string, any>) => {
     [vehicle_id],
   );
 
+  const updated_status = "booked"
+
+  //* updating availability_status of the vehicle to "booked"
+  await pool.query(`UPDATE vehicles SET availability_status=$1 WHERE id=$2`,[updated_status,vehicle_id]);
+
+  //* total price
   const start = new Date(rent_start_date);
   const end = new Date(rent_end_date);
 
@@ -19,6 +25,7 @@ const createBooking = async (payload: Record<string, any>) => {
 
   const status = "active";
 
+  //* creating a booking
   const result = await pool.query(
     `INSERT INTO bookings(customer_id, vehicle_id, rent_start_date, rent_end_date, total_price, status) VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,
     [
