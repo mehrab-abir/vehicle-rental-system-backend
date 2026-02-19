@@ -8,10 +8,13 @@ const createBooking = async (payload: Record<string, any>) => {
     [vehicle_id],
   );
 
-  const updated_status = "booked"
+  const updated_status = "booked";
 
   //* updating availability_status of the vehicle to "booked"
-  await pool.query(`UPDATE vehicles SET availability_status=$1 WHERE id=$2`,[updated_status,vehicle_id]);
+  await pool.query(`UPDATE vehicles SET availability_status=$1 WHERE id=$2`, [
+    updated_status,
+    vehicle_id,
+  ]);
 
   //* total price
   const start = new Date(rent_start_date);
@@ -44,12 +47,23 @@ const createBooking = async (payload: Record<string, any>) => {
   };
 };
 
-const getAllBookings = async()=>{
-    const result = await pool.query(`SELECT * FROM bookings`);
-    return result;
-}
+const getAllBookings = async (info: Record<string, any>) => {
+  let result;
+
+  if (info.role === "customer") {
+    const customer_id = Number(info.id);
+    result = await pool.query(`SELECT * FROM bookings WHERE customer_id=$1`, [
+      customer_id,
+    ]);
+  }
+  else{
+    result = await pool.query(`SELECT * FROM bookings`);
+  }
+
+  return result;  
+};
 
 export const bookingServices = {
   createBooking,
-  getAllBookings
+  getAllBookings,
 };

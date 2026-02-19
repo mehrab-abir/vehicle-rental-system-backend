@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { bookingServices } from "./booking.services";
+import { AuthRequest } from "../../middlewares/verifyToken";
 
 const createBooking = async (req: Request, res: Response) => {
   try {
@@ -23,9 +24,16 @@ const createBooking = async (req: Request, res: Response) => {
   }
 };
 
-const getAllBookings = async (req: Request, res: Response) => {
+const getAllBookings = async (req: AuthRequest, res: Response) => {
+  
+  if(!req.user){
+    return res.status(401).json({
+      message : "unauthorized"
+    })
+  }
+
   try {
-    const bookings = await bookingServices.getAllBookings();
+    const bookings = await bookingServices.getAllBookings(req.user);
 
     res.status(200).json({
       success: true,
@@ -39,6 +47,8 @@ const getAllBookings = async (req: Request, res: Response) => {
     });
   }
 };
+
+
 
 export const bookingControllers = {
   createBooking,
