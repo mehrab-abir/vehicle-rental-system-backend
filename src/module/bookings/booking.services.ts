@@ -4,9 +4,15 @@ const createBooking = async (payload: Record<string, any>) => {
   const { customer_id, vehicle_id, rent_start_date, rent_end_date } = payload;
 
   const vehicle = await pool.query(
-    `SELECT vehicle_name, daily_rent_price FROM vehicles WHERE id=$1`,
+    `SELECT vehicle_name, daily_rent_price, availability_status FROM vehicles WHERE id=$1`,
     [vehicle_id],
   );
+
+  if (vehicle.rows[0].availability_status === "booked") {
+    return {
+      status: "booked",
+    };
+  }
 
   const updated_status = "booked";
 

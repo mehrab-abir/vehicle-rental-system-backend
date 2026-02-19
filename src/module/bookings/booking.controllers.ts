@@ -6,13 +6,20 @@ const createBooking = async (req: Request, res: Response) => {
   try {
     const result = await bookingServices.createBooking(req.body);
 
-    const vehicle = result.vehicle.rows[0];
+    if(result.status === "booked"){
+      return res.json({
+        success : false,
+        message : "this vehicle is already booked"
+      })
+    }
+
+    const vehicle = result.vehicle!.rows[0];
 
     res.status(200).json({
       success: true,
       message: "Booking created successfully",
       data: {
-        ...result.bookingInfo.rows[0],
+        ...result.bookingInfo!.rows[0],
         vehicle,
       },
     });
