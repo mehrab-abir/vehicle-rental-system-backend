@@ -35,8 +35,14 @@ const updateUser = async(id:number,data:updateUserInfo)=>{
     return result;
 }
 
+const deleteUser = async(id:number)=>{
+    const result = await pool.query(`DELETE FROM users WHERE id=$1`,[id]);
+    return result;
+}
+
 
 export const userServices = {
     getAllUsers,
-    updateUser
+    updateUser,
+    deleteUser
 }

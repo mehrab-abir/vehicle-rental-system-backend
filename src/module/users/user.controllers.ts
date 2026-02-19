@@ -31,11 +31,11 @@ const updateUser = async (req: Request, res: Response) => {
   try {
     const result = await userServices.updateUser(id, req.body);
 
-    if(result.rowCount !== 1){
-        return res.status(500).json({
-            success : false,
-            message : "user was not updated"
-        })
+    if (result.rowCount !== 1) {
+      return res.status(500).json({
+        success: false,
+        message: "user was not updated",
+      });
     }
 
     res.status(200).json({
@@ -54,7 +54,33 @@ const updateUser = async (req: Request, res: Response) => {
   }
 };
 
+const deleteUser = async (req: Request, res: Response) => {
+  const id = Number(req.params.userId);
+
+  try {
+    const result = await userServices.deleteUser(id);
+
+    if(result.rowCount !== 1){
+        return res.status(500).json({
+            success : false,
+            message : "no user was deleted"
+        })
+    }
+
+    res.json({
+      success: true,
+      message: "User deleted successfully",
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: "something went wrong, user not deleted",
+    });
+  }
+};
+
 export const userControllers = {
   getAllUsers,
   updateUser,
+  deleteUser,
 };
