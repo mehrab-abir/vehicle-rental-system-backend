@@ -18,7 +18,7 @@ const updateUser = async(id:number,data:updateUserInfo)=>{
 
     for(const [key,value] of Object.entries(data)){
         if(value !== undefined){
-            fields.push(`${key} = $${index}`);
+            fields.push(`${key} = $${index}`); //* name=$1, email=$2 etc...
             values.push(value);
             index++;
         }
