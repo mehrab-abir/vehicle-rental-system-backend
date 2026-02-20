@@ -2,7 +2,7 @@ import app from "./app";
 const port = process.env.PORT || 5000;
 
 app.get("/",(req, res)=>{
-    res.send("Vehicle rental system backend is running...");
+    res.send("Vehicle rental system server is running...");
 })
 
 
