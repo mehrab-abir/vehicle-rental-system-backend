@@ -6,7 +6,7 @@ The system supports **user authentication**, **role-based authorization**, **veh
 ---
 
 **Base API URL:**  
-
+#### https://vehicle-rental-system-backend-lyart.vercel.app/
 
 ---
 
@@ -71,24 +71,26 @@ The system supports **user authentication**, **role-based authorization**, **veh
 > Modular, feature-based architecture with clear separation of concerns.
 ---
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/vehicle-rental-backend.git
-cd vehicle-rental-backend
+git clone https://github.com/mehrab-abir/vehicle-rental-system-backend
+cd vehicle-rental-system-backend
 ```
 
 ### 2. Install Dependencies
+```bash
 npm install
+```
 
 ### 3. Environment Variables
 Create a .env file in the root directory:  
 
 PORT=5000
-DATABASE_URL=postgresql://username:password@localhost:5432/vehicle_rental
+DATABASE_URL=postgresql://username:password@localhost:5000/vehicle_rental
 JWT_SECRET=your_secret_key
 
 ## Author
-Mehrab Jalil Abir 
+### Mehrab Jalil Abir </br>
 Full-Stack Developer
