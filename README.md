@@ -1,12 +1,12 @@
 # 🚗 Vehicle Rental System – Backend API
 
-A production-ready RESTful backend API for managing a vehicle rental platform.  
+A RESTful backend API for managing a vehicle rental platform.  
 The system supports **user authentication**, **role-based authorization**, **vehicle inventory management**, and **rental bookings with automatic price calculation**.
 
 ---
 
-**Base API URL:**  
-#### https://vehicle-rental-system-backend-lyart.vercel.app/
+### Base API URL: 
+#### --> https://vehicle-rental-system-backend-lyart.vercel.app/
 
 ---
 
