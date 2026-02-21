@@ -87,10 +87,9 @@ npm install
 ### 3. Environment Variables
 Create a .env file in the root directory:  
 
-PORT=5000
 CONNECTION_STRING=postgresql://username:password@localhost:5000/vehicle_rental
 JWT_SECRET=your_secret_key
 
 ## Author
-### Mehrab Jalil Abir  
+### Mehrab Jalil Abir    
 Full-Stack Developer
