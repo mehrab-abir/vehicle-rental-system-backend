@@ -88,9 +88,9 @@ npm install
 Create a .env file in the root directory:  
 
 PORT=5000
-DATABASE_URL=postgresql://username:password@localhost:5000/vehicle_rental
+CONNECTION_STRING=postgresql://username:password@localhost:5000/vehicle_rental
 JWT_SECRET=your_secret_key
 
 ## Author
-### Mehrab Jalil Abir </br>
+### Mehrab Jalil Abir  
 Full-Stack Developer
